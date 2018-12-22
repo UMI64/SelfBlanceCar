@@ -9,37 +9,38 @@ class REC
         float Width;//矩形的宽度
         float PositionX;//矩形在父布局中的位置(左下角为标记点)
         float PositionY;//矩形在父布局中的位置(左下角为标记点)
-        static bool IsIntersect(REC * r_1,REC * r_2)
-        {
-            float ymax=r_1->Height+r_2->Height/2;
-            float xmax=r_1->Width+r_2->Width/2;
-            float ymin=fabs((r_1->Height-r_2->Height)/2);
-            float xmin=fabs((r_1->Width-r_2->Width)/2);
-            float centerx= fabs(r_1->PositionX + r_1->Width/2 - r_2->PositionX - r_2->Width/2);
-            float centery= fabs(r_1->PositionY + r_1->Height/2 - r_2->PositionY - r_2->Height/2);
-            if(centerx<xmax&&centerx>xmin&&centery<ymax&&centery>ymin)
-                return true;
-            else 
-                return false;
-        }
+		virtual ~REC() = default;
         static bool IsContain(REC * r_1,REC * r_2)
         {
-            float ymin=(r_1->Height-r_2->Height)/2;
-            float xmin=(r_1->Width-r_2->Width)/2;
-            float centerx= fabs(r_1->PositionX + r_1->Width / 2 - r_2->PositionX - r_2->Width / 2);
-            float centery= fabs(r_1->PositionY + r_1->Height / 2 - r_2->PositionY - r_2->Height / 2);
-            if(centerx<xmin&&centery<ymin)
-                return true;
-            else 
-                return false;
+			int x, y;
+			for (char r2count = 0; r2count < 4; r2count++)
+			{
+				switch (r2count)
+				{
+					case 0:x = r_2->PositionX; y = r_2->PositionY; break;
+					case 1:x += r_2->Width; break;
+					case 2: y += r_2->Height; break;
+					case 3:x -= r_2->Width;
+				}
+				if (x < r_1->PositionX || x>r_1->PositionX+ r_1->Width) return false;
+				if(y < r_1->PositionY || y>r_1->PositionY + r_1->Height) return false;
+			}
+			return true;
         }
+		static bool IsOverlap(REC * r_1, REC * r_2)
+		{
+			bool xOverlap = fabs(r_1->PositionX + r_1->Width / 2 - r_2->PositionX - r_2->Width / 2) < (r_1->Width / 2 + r_2->Width / 2);
+			bool yOverlap = fabs(r_1->PositionY + r_1->Height / 2 - r_2->PositionY - r_2->Height / 2) < (r_1->Height / 2 + r_2->Height / 2);
+			if (xOverlap &&yOverlap) return true;
+			else return false;
+		}
         static List<REC> * Subtract(REC * r_1,REC * r_2)
         {//矩形相减
 			List<REC> * RecList = new List<REC>();
 			//裁剪左边
-			if ( (r_2->PositionX - r_1->PositionX) > 0.001f)
+			if (r_2->PositionX > r_1->PositionX)
 			{
-				if (((r_2->PositionX - r_1->PositionX) - r_1->Width)<0.001f)
+				if ((r_2->PositionX - r_1->PositionX) < r_1->Width)
 				{//裁掉左边并加入链表
 					REC * Rec = new REC(*r_1);
 					Rec->Width = r_2->PositionX - r_1->PositionX;
@@ -55,9 +56,9 @@ class REC
 				}
 			}
 			//裁剪下边
-			if ((r_2->PositionY - r_1->PositionY) > 0.001f)
+			if (r_2->PositionY > r_1->PositionY)
 			{
-				if (((r_2->PositionY - r_1->PositionY) - r_1->Height)<0.001f)
+				if ((r_2->PositionY - r_1->PositionY) < r_1->Height)
 				{//裁掉下边并加入链表
 					REC * Rec = new REC(*r_1);
 					Rec->Height = r_2->PositionY - r_1->PositionY;
@@ -73,9 +74,9 @@ class REC
 				}
 			}
 			//裁剪右边
-			if (((r_1->PositionX - r_2->PositionX)- (r_2->Width-r_1->Width))>0.001f)
+			if ((r_1->PositionX - r_2->PositionX)> (r_2->Width-r_1->Width))
 			{
-				if (((r_1->PositionX - r_2->PositionX)- r_2->Width)<0.001f)
+				if ((r_1->PositionX - r_2->PositionX)< r_2->Width)
 				{
 					REC * Rec = new REC(*r_1);
 					Rec->Width = r_1->PositionX + r_1->Width - r_2->PositionX - r_2->Width;
@@ -91,9 +92,9 @@ class REC
 				}
 			}			
 			//裁剪上边
-			if (((r_1->PositionY - r_2->PositionY)- (r_2->Height - r_1->Height))>0.001f)
+			if ((r_1->PositionY - r_2->PositionY)> (r_2->Height - r_1->Height))
 			{
-				if (((r_2->PositionY - r_1->PositionY)- r_1->Height)<0.001f)
+				if ((r_2->PositionY - r_1->PositionY)< r_1->Height)
 				{
 					REC * Rec = new REC(*r_1);
 					Rec->Height = r_1->PositionY + r_1->Height - r_2->PositionY - r_2->Height;
