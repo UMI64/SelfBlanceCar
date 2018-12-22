@@ -1,0 +1,35 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${wordspaceRoot}",
+                "C:/Keil_v5/ARM/PACK/Keil/STM32F1xx_DFP/2.3.0/Device/StdPeriph_Driver/inc",
+                "C:/Keil_v5/ARM/PACK/ARM/CMSIS-FreeRTOS/10.0.1/Source/portable/GCC/ARM_CM3",
+                "C:/Keil_v5/ARM/PACK/ARM/CMSIS/5.4.0/CMSIS/RTOS2/Include",
+                "C:/Users/94942/Documents/GitHub/SelfBlanceCar/RTE/_Target_1",
+                "C:/Keil_v5/ARM/PACK/Keil/STM32F1xx_DFP/2.3.0/Device/Include/**",
+                "C:/Keil_v5/ARM/PACK/ARM/CMSIS-FreeRTOS/10.0.1/CMSIS/RTOS2/FreeRTOS/include/**",
+                "C:/Keil_v5/ARM/PACK/ARM/CMSIS-FreeRTOS/10.0.1/CMSIS/RTOS2/FreeRTOS/include1/**",
+                "C:/Keil_v5/ARM/PACK/ARM/CMSIS/5.4.0/CMSIS/Core/Include/**",
+                "C:/Keil_v5/ARM/PACK/ARM/CMSIS-FreeRTOS/10.0.1/Source/include/**",
+                "C:/Users/94942/Documents/GitHub/SelfBlanceCar/RTE/RTOS/**",
+                "C:/Users/94942/Documents/GitHub/SelfBlanceCar/MATH",
+                "C:/Users/94942/Documents/GitHub/SelfBlanceCar/Hard/I2C",
+                "C:/Users/94942/Documents/GitHub/SelfBlanceCar/Hard/096OLED",
+                "C:/Users/94942/Documents/GitHub/SelfBlanceCar/UI"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "browse.path": "C:/Users/94942/Documents/GitHub/SelfBlanceCar",
+            "windowsSdkVersion": "10.0.17763.0",
+            "compilerPath": "C:/Program Files (x86)/Microsoft Visual Studio/2017/Community/VC/Tools/MSVC/14.16.27023/bin/Hostx64/x64/cl.exe",
+            "cStandard": "c11",
+            "intelliSenseMode": "msvc-x64"
+        }
+    ],
+    "version": 4
+}
