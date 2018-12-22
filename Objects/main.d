@@ -51,5 +51,5 @@
   MATH\PID.h Display.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\stdio.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdio.h Hard/096OLED\096oled.h \
-  UI\UI.hpp UI/UI_DEV.hpp UI/UI_LIST.hpp UI/UI_GRAPH.hpp UI/UI_VIEW.hpp \
-  UI/UI.hpp Hard/PCM5102\PCM5102.h
+  UI\UI.hpp UI/UI_LIST.hpp UI/UI_LIST.cpp UI/UI_DEV.hpp UI/UI_GRAPH.hpp \
+  UI/UI_VIEW.hpp UI/UI.hpp Hard/PCM5102\PCM5102.h

@@ -18,7 +18,7 @@ DREC::DREC(REC &rec)
 }
 void View::GetDREC(List<DREC> * DRECList)
 {
-    for(unsigned int viewcount=0;viewcount<ChildViewList->Count;viewcount++)//最高层跳过此步骤
+    for(int viewcount=0;viewcount<ChildViewList->Count;viewcount++)//最高层跳过此步骤
     {
         View * V=ChildViewList->Getbyid(viewcount);//取出一个view
         V->GetDREC(DRECList);//获得已绘矩形
@@ -60,7 +60,7 @@ void View::GetDREC(List<DREC> * DRECList)
 						ResultDRECList->Add(TopDREC);
 						//下方剩余的碎片
 						List<REC> * recs = REC::Subtract(ButtonDREC, TopDREC);
-						for (unsigned int rcount = 0; rcount < recs->Count; rcount++)
+						for ( int rcount = 0; rcount < recs->Count; rcount++)
 						{
 							DREC * drec = new DREC(*recs->Getbyid(rcount));
 							drec->V = ButtonDREC->V;
@@ -84,7 +84,7 @@ void View::GetDREC(List<DREC> * DRECList)
 				{
 					List<REC> * ResultTopREC = REC::Subtract(TopDREC, ButtonDREC);//收集到的上层矩形碎片
 					List<DREC>*	ResultTopDREC = new List<DREC>();
-					for (unsigned int rcount = 0; rcount < ResultTopREC->Count; rcount++)
+					for ( int rcount = 0; rcount < ResultTopREC->Count; rcount++)
 					{
 						REC * drec_1 = ResultTopREC->Getbyid(rcount);
 						DREC * drec = new DREC(*drec_1);
@@ -99,18 +99,18 @@ void View::GetDREC(List<DREC> * DRECList)
 						//生成重绘矩形 由所在的View绘制它
 						List<REC> * AimdRecs = new List<REC>();//命中的矩形
 						AimdRecs->Add(new DREC(*TopDREC));//初始为上层矩形
-						for (unsigned int rcount = 0; rcount < ResultTopDREC->Count; rcount++)
+						for ( int rcount = 0; rcount < ResultTopDREC->Count; rcount++)
 						{
 							DREC * drec = ResultTopDREC->Getbyid(rcount);
 							List<REC> * NewAimdRecs = new List<REC>();
-							for (unsigned int acount = 0; acount < AimdRecs->Count; acount++)
+							for ( int acount = 0; acount < AimdRecs->Count; acount++)
 							{
 								NewAimdRecs->Add(REC::Subtract(AimdRecs->Getbyid(acount), drec));//上层矩形减去它的碎片等于重叠的部分
 							}
 							delete AimdRecs;
 							AimdRecs = NewAimdRecs;
 						}
-						for (unsigned int acount = 0; acount < AimdRecs->Count; acount++)//添加必要的信息
+						for ( int acount = 0; acount < AimdRecs->Count; acount++)//添加必要的信息
 						{
 							DREC * AimdRec = new DREC(*(AimdRecs->Getbyid(acount)));
 							AimdRec->V = this;
@@ -120,7 +120,7 @@ void View::GetDREC(List<DREC> * DRECList)
 						}
 						delete AimdRecs;
 						List<REC> * ResoutButtonDREC = REC::Subtract(ButtonDREC, TopDREC);//下层矩形的碎片
-						for (unsigned int rcount = 0; rcount < ResoutButtonDREC->Count; rcount++)
+						for ( int rcount = 0; rcount < ResoutButtonDREC->Count; rcount++)
 						{
 							DREC * drec = new DREC(*(ResoutButtonDREC->Getbyid(rcount)));
 							drec->V = ButtonDREC->V;
@@ -151,7 +151,7 @@ void View::GetDREC(List<DREC> * DRECList)
 				else if(REC::IsOverlap(TopDREC, ButtonDREC))
 				{
 					List<REC> * recs = REC::Subtract(ButtonDREC, TopDREC);
-					for (unsigned int rcount = 0; rcount < recs->Count; rcount++)
+					for (int rcount = 0; rcount < recs->Count; rcount++)
 					{
 						DREC * drec = new DREC(*recs->Getbyid(rcount));
 						drec->V = ButtonDREC->V;
@@ -191,7 +191,7 @@ List<DREC> * View::EliminationOverlap(List<DREC> * Drec)//消去重叠区获取无重叠矩
 		ButtonDRECList->Add(Drec->Getbyid(0));//取请求矩形的第一个矩形加入这个链表
 		Drec->Deletebyid(0, false);//删除原来的请求矩形
 	}
-	for (unsigned int count = 0; count < Drec->Count; count++)
+	for ( int count = 0; count < Drec->Count; count++)
 	{
 		//从请求矩形链表取出一个矩形
 		DREC * TopDREC = Drec->Getbyid(count);
@@ -207,7 +207,7 @@ List<DREC> * View::EliminationOverlap(List<DREC> * Drec)//消去重叠区获取无重叠矩
 			else //如果没覆盖则用无重叠矩形减去请求矩形再加上请求矩形组成没有重叠的矩形链表
 			{
 				List<REC> * recs = REC::Subtract((REC*)ButtonDREC, (REC*)TopDREC);
-				for (unsigned int rcount = 0; rcount < recs->Count; rcount++)
+				for ( int rcount = 0; rcount < recs->Count; rcount++)
 				{
 					DREC * drec = new DREC(*recs->Getbyid(rcount));
 					drec->V = ButtonDREC->V;

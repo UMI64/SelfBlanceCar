@@ -5,10 +5,10 @@
 class REC
 {
     public:
-        float Height;//矩形的高度
-        float Width;//矩形的宽度
-        float PositionX;//矩形在父布局中的位置(左下角为标记点)
-        float PositionY;//矩形在父布局中的位置(左下角为标记点)
+        int Height;//矩形的高度
+		int Width;//矩形的宽度
+		int PositionX;//矩形在父布局中的位置(左下角为标记点)
+		int PositionY;//矩形在父布局中的位置(左下角为标记点)
 		virtual ~REC() = default;
         static bool IsContain(REC * r_1,REC * r_2)
         {

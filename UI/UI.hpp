@@ -1,9 +1,9 @@
 #ifndef _UI_H
 #define _UI_H
-//#include "stm32f10x.h"
 #include "stdbool.h"
-#include "UI_DEV.hpp"
 #include "UI_LIST.hpp"
+#include "UI_LIST.cpp"
+#include "UI_DEV.hpp"
 #include "UI_GRAPH.hpp"
 #include "UI_VIEW.hpp"
 class UICORE

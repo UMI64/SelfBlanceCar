@@ -27,24 +27,12 @@ Project File Date:  12/16/2018
 <h2>Output:</h2>
 *** Using Compiler 'V6.10.1', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target 'Target 1'
-UI/UI_VIEW.cpp(83): error: no member named 'IsOverlap' in 'REC'
-                                else if(REC::IsOverlap(ButtonDREC, TopDREC))//<D6><U+0635><FE>
-                                        ~~~~~^
-UI/UI_VIEW.cpp(151): error: no member named 'IsOverlap' in 'REC'
-                                else if(REC::IsOverlap(TopDREC, ButtonDREC))
-                                        ~~~~~^
-2 errors generated.
-compiling UI_VIEW.cpp...
-compiling UI.hpp...
-compiling UI_CORE_DEV.cpp...
-compiling UI_CORE_TASK_ERAW.cpp...
-main.cpp(37): warning: function previously declared with an explicit exception specification redeclared with an implicit exception specification [-Wimplicit-exception-spec-mismatch]
-void operator delete (void * pointer)
-     ^
-1 warning generated.
-compiling main.cpp...
 compiling Display.cpp...
-".\Objects\SelfBlanceCar.axf" - 2 Error(s), 1 Warning(s).
+linking...
+.\Objects\SelfBlanceCar.axf: Warning: L6776W: The debug frame in .debug_frame(display.o) does not describe an executable section.
+Program Size: Code=78088 RO-data=5472 RW-data=16 ZI-data=21656  
+Finished: 0 information, 1 warning and 0 error messages.
+".\Objects\SelfBlanceCar.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -101,27 +89,27 @@ Package Vendor: Keil
       Include file:  CMSIS\RTOS2\FreeRTOS\Config\ARMCM\FreeRTOSConfig.h
 
    * Component: ARM.FreeRTOS::RTOS:Core:10.0.1
-      Include file:  CMSIS\RTOS2\FreeRTOS\Include\freertos_evr.h
-      Source file:   CMSIS\RTOS2\FreeRTOS\Source\freertos_evr.c
-      Include file:  Source\include\queue.h
-      Source file:   Source\tasks.c
-      Include file:  Source\include\semphr.h
       Source file:   Source\portable\GCC\ARM_CM3\port.c
-      Include file:  Source\include\task.h
-      Source file:   Source\list.c
+      Source file:   CMSIS\RTOS2\FreeRTOS\Source\freertos_evr.c
+      Include file:  CMSIS\RTOS2\FreeRTOS\Include\freertos_evr.h
+      Include file:  Source\include\semphr.h
       Include file:  Source\include\FreeRTOS.h
       Source file:   Source\queue.c
+      Source file:   Source\tasks.c
+      Include file:  Source\include\task.h
+      Source file:   Source\list.c
+      Include file:  Source\include\queue.h
 
    * Component: ARM.FreeRTOS::RTOS:Event Groups:10.0.1
-      Source file:   Source\event_groups.c
       Include file:  Source\include\event_groups.h
+      Source file:   Source\event_groups.c
 
    * Component: ARM.FreeRTOS::RTOS:Heap:Heap_4:10.0.1
       Source file:   Source\portable\MemMang\heap_4.c
 
    * Component: ARM.FreeRTOS::RTOS:Timers:10.0.1
-      Include file:  Source\include\timers.h
       Source file:   Source\timers.c
+      Include file:  Source\include\timers.h
 
    * Component: ARM::CMSIS:CORE:5.1.2
 
@@ -131,25 +119,25 @@ Package Vendor: Keil
       Source file:   CMSIS\RTOS2\FreeRTOS\Source\os_systick.c
 
    * Component: Keil::Device:Startup:1.0.0
-      Include file:  RTE_Driver\Config\RTE_Device.h
       Source file:   Device\Source\ARM\STM32F1xx_OPT.s
       Source file:   Device\Source\ARM\startup_stm32f10x_hd.s
       Source file:   Device\Source\system_stm32f10x.c
+      Include file:  RTE_Driver\Config\RTE_Device.h
 
    * Component: Keil::Device:StdPeriph Drivers:ADC:3.5.0
-      Source file:   Device\StdPeriph_Driver\src\stm32f10x_adc.c
       Include file:  Device\StdPeriph_Driver\inc\stm32f10x_adc.h
+      Source file:   Device\StdPeriph_Driver\src\stm32f10x_adc.c
 
    * Component: Keil::Device:StdPeriph Drivers:DMA:3.5.0
-      Include file:  Device\StdPeriph_Driver\inc\stm32f10x_dma.h
       Source file:   Device\StdPeriph_Driver\src\stm32f10x_dma.c
+      Include file:  Device\StdPeriph_Driver\inc\stm32f10x_dma.h
 
    * Component: Keil::Device:StdPeriph Drivers:Framework:3.5.1
-      Include file:  Device\StdPeriph_Driver\inc\misc.h
       Include file:  Device\StdPeriph_Driver\templates\stm32f10x_it.h
       Source file:   Device\StdPeriph_Driver\templates\stm32f10x_conf.h
       Source file:   Device\StdPeriph_Driver\src\misc.c
       Source file:   Device\StdPeriph_Driver\templates\stm32f10x_it.c
+      Include file:  Device\StdPeriph_Driver\inc\misc.h
 
    * Component: Keil::Device:StdPeriph Drivers:GPIO:3.5.0
       Include file:  Device\StdPeriph_Driver\inc\stm32f10x_gpio.h
@@ -164,14 +152,13 @@ Package Vendor: Keil
       Source file:   Device\StdPeriph_Driver\src\stm32f10x_sdio.c
 
    * Component: Keil::Device:StdPeriph Drivers:SPI:3.5.0
-      Source file:   Device\StdPeriph_Driver\src\stm32f10x_spi.c
       Include file:  Device\StdPeriph_Driver\inc\stm32f10x_spi.h
+      Source file:   Device\StdPeriph_Driver\src\stm32f10x_spi.c
 
    * Component: Keil::Device:StdPeriph Drivers:TIM:3.5.0
       Include file:  Device\StdPeriph_Driver\inc\stm32f10x_tim.h
       Source file:   Device\StdPeriph_Driver\src\stm32f10x_tim.c
-Target not created.
-Build Time Elapsed:  00:00:02
+Build Time Elapsed:  00:00:00
 </pre>
 </body>
 </html>

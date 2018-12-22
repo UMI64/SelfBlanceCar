@@ -49,4 +49,5 @@
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\cstddef \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\limits \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\__undef_macros UI\UI.hpp \
-  UI/UI_DEV.hpp UI/UI_LIST.hpp UI/UI_GRAPH.hpp UI/UI_VIEW.hpp UI/UI.hpp
+  UI/UI_LIST.hpp UI/UI_LIST.cpp UI/UI_DEV.hpp UI/UI_GRAPH.hpp \
+  UI/UI_VIEW.hpp UI/UI.hpp

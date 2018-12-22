@@ -1,8 +1,8 @@
 ./objects/ui_core_task_eraw.o: UI/UI_CORE_TASK_ERAW.cpp UI/UI.hpp \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\stdbool.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\__config \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h UI/UI_DEV.hpp \
-  UI/UI_LIST.hpp UI/UI_GRAPH.hpp \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h UI/UI_LIST.hpp \
+  UI/UI_LIST.cpp UI/UI_DEV.hpp UI/UI_GRAPH.hpp \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\math.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\math.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\type_traits \
