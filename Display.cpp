@@ -150,19 +150,20 @@ Display::Display()
 	OLED * Monitor_1 = new OLED();
 	Ui = new UICORE();
 	Ui->Add_Device(Monitor_1);
+	Ui->Add_Device(*Monitor_1);
 	RecView * RecFather = new RecView(0x1111);
 	RecFather->Height = 9;
 	RecFather->Width = 9;
 	RecFather->PositionX = 100;
 	RecFather->PositionY = 0;
-	Ui->Add_View(RecFather);
+	Ui->Add_View(*RecFather);
 
 	RecView * RecGreen = new RecView(0xa5a5);
 	RecGreen->Height = 9;
 	RecGreen->Width = 9;
 	RecGreen->PositionX = 100;
 	RecGreen->PositionY = 40;
-	RecFather->AddChildView(RecGreen);
+	RecFather->AddChildView(*RecGreen);
 	
 	xTaskCreate((TaskFunction_t)TASK_UI_Draw,"vLEDTASK", 250, Ui, 1, NULL);
 }

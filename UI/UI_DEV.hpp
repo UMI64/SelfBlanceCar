@@ -6,9 +6,9 @@ class DisplayDEV
 public:
  	unsigned char Width;
 	unsigned char Height;
-	virtual void Point(int x,int y,unsigned int Color)=0;
-	virtual void Open()=0;
-	virtual void Close()=0;
+	virtual void Point(int x, int y, unsigned int Color) {};
+	virtual void Open() {};
+	virtual void Close() {};
 	virtual ~DisplayDEV() = default;
 };
 #endif

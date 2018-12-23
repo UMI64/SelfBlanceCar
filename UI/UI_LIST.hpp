@@ -1,69 +1,65 @@
 #ifndef __UILIST__H__
 #define __UILIST__H__
-/*一个元素*/
-template <class T> class Item
+template <class T> class ItemNode
 {
 	public:
-		//创建一个由链表管理的对象
-		Item(T *item)
+		ItemNode(const T &item)
 		{
-			pTrueItem=item;
+			Item=item;
 		}
-		~Item()
+		~ItemNode()
 		{
-			if(!FLAG_DoNotDeleteItem)
-				delete pTrueItem;
-			else
+			if (pPreItemNode) pPreItemNode->pNextItemNode = pNextItemNode;
+			if (pNextItemNode) pNextItemNode->pPreItemNode = pPreItemNode;
+		}
+		void CreateNextItemNode(const T &item)
+		{
+			ItemNode *ptemp = pNextItemNode;
+			pNextItemNode = new ItemNode(item);
+			pNextItemNode->pNextItemNode = ptemp;
+			if (ptemp)
 			{
-				int a=1;
+				ptemp->pPreItemNode = pNextItemNode;
 			}
+			pNextItemNode->pPreItemNode = this;
 		}
-		T  * pTrueItem;//元素指针
-		Item * pNextItem;//下一个元素的地址
-		bool FLAG_DoNotDeleteItem=false;
+		T Item;
+		ItemNode * pPreItemNode=nullptr;
+		ItemNode * pNextItemNode=nullptr;
 };
-/*链表管理类*/
 template <class T> class List
 {
 	public:
 		int Count=0;
-		//加入一个元素的指针
-		void Add(T *item);
-		void Add(List<T> * list);
-		//得到一个节点的元素(引用)
-		T * Getbyid(unsigned int id);
-		//删除一个元素
-		void Deletebyid(unsigned int id, bool IsDeleteItem);
-		void Replacebyid(unsigned int id, T *item);
-		void Replacebyid(unsigned int id, List<T> *item);
-		void DoNotDeleteItem()
+		void Add(const T &item);
+		void Add(const List<T> &list);
+		T& GetItembyid(unsigned int id);
+		T& GetLastItem();
+		void Deletebyid(unsigned int id);
+		void Replacebyid(unsigned int id, const T &item);
+		void Replacebyid(unsigned int id, const List<T> &item);
+		void Clear();
+		List()
 		{
-			FLAG_DoNotDeleteItem=true;
+
 		}
-		void Clear();//删除所有元素
-		bool haveDonotDeleteitem()
+		List(const List<T> &list)
 		{
-			Item<T> *pitem = pFirstItem;
-			for (int i = 0; i < Count; i++)
-			{
-				if (pitem->FLAG_DoNotDeleteItem) return true;
-			}
-			return false;
+			this->Add(list);
 		}
 		~List()
 		{
-			if(!FLAG_InternalDelete)
+			if(FLAG_DoNotDeleteNode==false)
 				Clear();
 		}
+		void operator =(const List<T> &list)
+		{
+			this->Clear();
+			this->Add(list);
+		}
 	private:
-		bool FLAG_DoNotDeleteItem=false;
-		bool FLAG_InternalDelete=false;
-		Item<T> * pFirstItem;//第一个元素的地址
-		Item<T> * pLastItem;//最后一个元素的地址
-};
-template <class T> class ListTest
-{
-public:
-	T TrueItem;//元素指针
+		bool FLAG_DoNotDeleteNode=false;
+		ItemNode<T> * pFirstItemNode;
+		ItemNode<T> * pLastItemNode;
 };
 #endif
