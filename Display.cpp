@@ -149,7 +149,6 @@ Display::Display()
 {
 	OLED * Monitor_1 = new OLED();
 	Ui = new UICORE();
-	Ui->Add_Device(Monitor_1);
 	Ui->Add_Device(*Monitor_1);
 	RecView * RecFather = new RecView(0x1111);
 	RecFather->Height = 9;
