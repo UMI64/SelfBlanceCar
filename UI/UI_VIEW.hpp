@@ -43,7 +43,7 @@ class View
 		int Width;//view的宽度
 		int PositionX;//view在父布局中的位置(左下角为标记点)
 		int PositionY;//view在父布局中的位置(左下角为标记点)
-		View(){}
+		View() {};
 		virtual ~View()
 		{
 			delete ChildViewList;
