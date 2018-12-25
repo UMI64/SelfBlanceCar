@@ -10,23 +10,14 @@ class REC
 		int PositionX;
 		int PositionY;
 		virtual ~REC() = default;
-        static bool IsContain(REC &r_1,REC &r_2)
-        {
-			int x, y;
-			for (char r2count = 0; r2count < 4; r2count++)
-			{
-				switch (r2count)
-				{
-					case 0:x = r_2.PositionX; y = r_2.PositionY; break;
-					case 1:x += r_2.Width; break;
-					case 2: y += r_2.Height; break;
-					case 3:x -= r_2.Width;
-				}
-				if (x < r_1.PositionX || x>r_1.PositionX+ r_1.Width) return false;
-				if(y < r_1.PositionY || y>r_1.PositionY + r_1.Height) return false;
-			}
+		static bool IsContain(REC &r_1, REC &r_2)
+		{
+			if (r_2.PositionX < r_1.PositionX || r_2.PositionX>r_1.PositionX + r_1.Width) return false;
+			if (r_2.PositionY < r_1.PositionY || r_2.PositionY>r_1.PositionY + r_1.Height) return false;
+			if (r_2.PositionX + r_2.Width < r_1.PositionX || r_2.PositionX + r_2.Width>r_1.PositionX + r_1.Width) return false;
+			if (r_2.PositionY + r_2.Height < r_1.PositionY || r_2.PositionY + r_2.Height>r_1.PositionY + r_1.Height) return false;
 			return true;
-        }
+		}
 		static bool IsOverlap(REC &r_1, REC &r_2)
 		{
 			bool xOverlap = fabs(r_1.PositionX + r_1.Width / 2.0f - r_2.PositionX - r_2.Width / 2.0f) < (r_1.Width / 2.0f + r_2.Width / 2.0f);

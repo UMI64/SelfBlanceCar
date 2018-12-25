@@ -18,24 +18,24 @@ DREC::DREC(const REC &rec)
 }
 void View::GetDREC(List<DREC> &DRECList)
 {
-	for (int viewcount = 0; viewcount < ChildViewList.Count; viewcount++)
+	for (int viewcount = 0; viewcount < ChildViewList.Count; ++viewcount)
 	{
-		View * V = ChildViewList.GetItembyid(viewcount);
+		View * V( ChildViewList.GetItembyid(viewcount));
 		V->GetDREC(DRECList);
 	}
 	this->OnDraw();
-	DREC drec = DREC(*this);
+	DREC drec(*this);
 	ViewDRECList.Add(drec);
-	auto ButtonDRECList = EliminationOverlap(ViewDRECList);
+	auto ButtonDRECList(EliminationOverlap(ViewDRECList));
 	ViewDRECList.Clear();
 
-	for (int count = 0; count < DRECList.Count; count++)
+	for (int count = 0; count < DRECList.Count; ++count)
 	{
-		DREC TopDREC = DRECList.GetItembyid(count);
+		DREC TopDREC (DRECList.GetItembyid(count));
 		List<DREC> ResultDRECList;
-		for (int nocount = 0; nocount < ButtonDRECList.Count; nocount++)
+		for (int nocount = 0; nocount < ButtonDRECList.Count; ++nocount)
 		{
-			DREC ButtonDREC = ButtonDRECList.GetItembyid(nocount);
+			DREC ButtonDREC( ButtonDRECList.GetItembyid(nocount));
 			if (TopDREC.GetDRECType() == Request)
 			{
 				if (REC::IsContain(ButtonDREC, TopDREC))
@@ -47,10 +47,10 @@ void View::GetDREC(List<DREC> &DRECList)
 						TopDREC.V = this;
 						ResultDRECList.Add(TopDREC);
 
-						List<REC> recs = REC::Subtract(ButtonDREC, TopDREC);
-						for (int rcount = 0; rcount < recs.Count; rcount++)
+						List<REC> recs( REC::Subtract(ButtonDREC, TopDREC));
+						for (int rcount = 0; rcount < recs.Count; ++rcount)
 						{
-							DREC drec = DREC(recs.GetItembyid(rcount));
+							DREC drec(DREC(recs.GetItembyid(rcount)));
 							drec.V = ButtonDREC.V;
 							drec.FLAG_Draw = ButtonDREC.FLAG_Draw;
 							drec.FLAG_LastDraw = ButtonDREC.FLAG_LastDraw;
@@ -59,7 +59,7 @@ void View::GetDREC(List<DREC> &DRECList)
 					}
 					else
 					{
-						for (int i = nocount; i < ButtonDRECList.Count; i++)
+						for (int i = nocount; i < ButtonDRECList.Count; ++i)
 						{
 							ResultDRECList.Add(DREC(ButtonDRECList.GetItembyid(i)));
 						}
@@ -68,12 +68,11 @@ void View::GetDREC(List<DREC> &DRECList)
 				}
 				else if (REC::IsOverlap(ButtonDREC, TopDREC))
 				{
-					List<REC> ResultTopREC = REC::Subtract(TopDREC, ButtonDREC);
+					List<REC> ResultTopREC (REC::Subtract(TopDREC, ButtonDREC));
 					List<DREC>	ResultTopDREC;
-					for (int rcount = 0; rcount < ResultTopREC.Count; rcount++)
+					for (int rcount = 0; rcount < ResultTopREC.Count; ++rcount)
 					{
-						REC drec_1 = ResultTopREC.GetItembyid(rcount);
-						DREC drec = DREC(drec_1);
+						DREC drec(ResultTopREC.GetItembyid(rcount));
 						drec.V = TopDREC.V;
 						drec.FLAG_Draw = TopDREC.FLAG_Draw;
 						drec.FLAG_LastDraw = TopDREC.FLAG_LastDraw;
@@ -82,31 +81,31 @@ void View::GetDREC(List<DREC> &DRECList)
 					if (ButtonDREC.GetDRECType() == Static)
 					{
 						List<REC> AimdRecs;
-						DREC drec = DREC(TopDREC);
+						DREC drec (TopDREC);
 						AimdRecs.Add(drec);
-						for (int rcount = 0; rcount < ResultTopDREC.Count; rcount++)
+						for (int rcount = 0; rcount < ResultTopDREC.Count; ++rcount)
 						{
-							DREC drec = ResultTopDREC.GetItembyid(rcount);
+							DREC drec( ResultTopDREC.GetItembyid(rcount));
 							List<REC> NewAimdRecs;
-							for (int acount = 0; acount < AimdRecs.Count; acount++)
+							for (int acount = 0; acount < AimdRecs.Count; ++acount)
 							{
-								List<REC> reclist = REC::Subtract(AimdRecs.GetItembyid(acount), drec);
+								List<REC> reclist(REC::Subtract(AimdRecs.GetItembyid(acount), drec));
 								NewAimdRecs.Add(reclist);
 							}
-							AimdRecs = NewAimdRecs;
+							AimdRecs.Replace( NewAimdRecs);
 						}
-						for (int acount = 0; acount < AimdRecs.Count; acount++)
+						for (int acount = 0; acount < AimdRecs.Count; ++acount)
 						{
-							DREC AimdRec = DREC(AimdRecs.GetItembyid(acount));
+							DREC AimdRec(AimdRecs.GetItembyid(acount));
 							AimdRec.V = this;
 							AimdRec.FLAG_Draw = ButtonDREC.FLAG_Draw;
 							AimdRec.FLAG_LastDraw = ButtonDREC.FLAG_LastDraw;
 							ResultDRECList.Add(AimdRec);
 						}
-						List<REC> ResoutButtonDREC = REC::Subtract(ButtonDREC, TopDREC);
-						for (int rcount = 0; rcount < ResoutButtonDREC.Count; rcount++)
+						List<REC> ResoutButtonDREC(REC::Subtract(ButtonDREC, TopDREC));
+						for (int rcount = 0; rcount < ResoutButtonDREC.Count; ++rcount)
 						{
-							DREC drec = DREC(ResoutButtonDREC.GetItembyid(rcount));
+							DREC drec(ResoutButtonDREC.GetItembyid(rcount));
 							drec.V = ButtonDREC.V;
 							drec.FLAG_Draw = ButtonDREC.FLAG_Draw;
 							drec.FLAG_LastDraw = ButtonDREC.FLAG_LastDraw;
@@ -133,10 +132,10 @@ void View::GetDREC(List<DREC> &DRECList)
 				}
 				else if (REC::IsOverlap(TopDREC, ButtonDREC))
 				{
-					List<REC> recs = REC::Subtract(ButtonDREC, TopDREC);
-					for (int rcount = 0; rcount < recs.Count; rcount++)
+					List<REC> recs(REC::Subtract(ButtonDREC, TopDREC));
+					for (int rcount = 0; rcount < recs.Count; ++rcount)
 					{
-						DREC drec = DREC(recs.GetItembyid(rcount));
+						DREC drec(recs.GetItembyid(rcount));
 						drec.V = ButtonDREC.V;
 						drec.FLAG_Draw = ButtonDREC.FLAG_Draw;
 						drec.FLAG_LastDraw = ButtonDREC.FLAG_LastDraw;
@@ -149,7 +148,7 @@ void View::GetDREC(List<DREC> &DRECList)
 				}
 			}
 		}
-		ButtonDRECList = ResultDRECList;
+		ButtonDRECList.Replace(ResultDRECList);
 	}
 	DRECList.Add(ButtonDRECList);
 }
@@ -170,13 +169,13 @@ List<DREC> View::EliminationOverlap(List<DREC> &Drec)
 		ButtonDRECList.Add(Drec.GetItembyid(0));
 		Drec.Deletebyid(0);
 	}
-	for (int count = 0; count < Drec.Count; count++)
+	for (int count = 0; count < Drec.Count; ++count)
 	{
-		DREC TopDREC = Drec.GetItembyid(count);
+		DREC TopDREC(Drec.GetItembyid(count));
 		List<DREC> ResultDRECList;
-		for (int nocount = 0; nocount < ButtonDRECList.Count; nocount++)
+		for (int nocount = 0; nocount < ButtonDRECList.Count; ++nocount)
 		{
-			DREC ButtonDREC = ButtonDRECList.GetItembyid(count);
+			DREC ButtonDREC(ButtonDRECList.GetItembyid(count));
 			if (REC::IsContain(TopDREC, ButtonDREC))
 			{
 				ButtonDRECList.Deletebyid(nocount);
@@ -184,10 +183,10 @@ List<DREC> View::EliminationOverlap(List<DREC> &Drec)
 			}
 			else
 			{
-				List<REC> recs = REC::Subtract(ButtonDREC, TopDREC);
-				for (int rcount = 0; rcount < recs.Count; rcount++)
+				List<REC> recs(REC::Subtract(ButtonDREC, TopDREC));
+				for (int rcount = 0; rcount < recs.Count; ++rcount)
 				{
-					DREC drec = DREC(recs.GetItembyid(rcount));
+					DREC drec(recs.GetItembyid(rcount));
 					drec.V = ButtonDREC.V;
 					drec.FLAG_Draw = ButtonDREC.FLAG_Draw;
 					drec.FLAG_LastDraw = ButtonDREC.FLAG_LastDraw;
@@ -195,7 +194,7 @@ List<DREC> View::EliminationOverlap(List<DREC> &Drec)
 				}
 			}
 		}
-		ButtonDRECList = ResultDRECList;
+		ButtonDRECList.Replace(ResultDRECList);
 		ButtonDRECList.Add(DREC(TopDREC));
 	}
 	return ButtonDRECList;

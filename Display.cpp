@@ -10,7 +10,7 @@ extern "C" void TASK_UI_Draw(void* parm) {
 class OLED:public DisplayDEV
 {
 	public:
-		OLED()//构造函数初始化OLED
+		OLED()
 		{
 			Width=128;
 			Height=64;
@@ -85,16 +85,16 @@ class OLED:public DisplayDEV
 				}
 			}
 		}
-		void Open()//打开设备
+		void Open()
 		{
 			Display_DEV->OLED_ON();
 			Display_DEV->OLED_Fill((unsigned char )0x00);
 		}
-		void Close()//关闭设备
+		void Close()
 		{
 			Display_DEV->OLED_OFF();
 		}
-		~OLED()//析构函数关闭设备
+		~OLED()
 		{
 			this->Close();
 			delete Display_DEV;
@@ -108,9 +108,9 @@ class OLED:public DisplayDEV
 	private:
 		uint16_t SDA;
 		uint16_t SCL;
-		I2CPORT *I2C_DEV;//IIC口
-		OLED096* Display_DEV;//OLED设备
-		unsigned char ** Buffer;//设备图像缓存
+		I2CPORT *I2C_DEV;
+		OLED096* Display_DEV;
+		unsigned char ** Buffer;
 };
 class RecView : public View
 {
@@ -135,10 +135,10 @@ class RecView : public View
 				this->PositionY+=0.1;
 			
 		}
-		void Draw(REC * rec)
+		void Draw(REC & rec)
 		{
 			//MonitorDEV->Point(1,1,0xff);
-			((class OLED *)MonitorDEV)->Fillrectangle(rec->PositionX,rec->PositionY,rec->Height,rec->Width,Color);
+			((class OLED *)MonitorDEV)->Fillrectangle(rec.PositionX,rec.PositionY,rec.Height,rec.Width,Color);
 			//((class OLED *)MonitorDEV)->Fillrectangle(rec->PositionX, rec->PositionY+ rec->Height, rec->PositionX+ rec->Width, rec->PositionY);
 			//setfillcolor(Color);
 			//fillrectangle(rec->PositionX, rec->PositionY+ rec->Height, rec->PositionX+ rec->Width, rec->PositionY);
@@ -147,24 +147,24 @@ class RecView : public View
 /*A 8 9*/
 Display::Display()
 {
-	OLED * Monitor_1 = new OLED();
-	Ui = new UICORE();
-	Ui->Add_Device(*Monitor_1);
-	RecView * RecFather = new RecView(0x1111);
-	RecFather->Height = 9;
-	RecFather->Width = 9;
-	RecFather->PositionX = 100;
-	RecFather->PositionY = 0;
-	Ui->Add_View(*RecFather);
+	OLED Monitor_1 = OLED();
+	Ui = UICORE();
+	Ui.Add_Device(Monitor_1);
+	RecView RecFather = RecView(0x1111);
+	RecFather.Height = 9;
+	RecFather.Width = 9;
+	RecFather.PositionX = 100;
+	RecFather.PositionY = 0;
+	Ui.Add_View(RecFather);
 
-	RecView * RecGreen = new RecView(0xa5a5);
-	RecGreen->Height = 9;
-	RecGreen->Width = 9;
-	RecGreen->PositionX = 100;
-	RecGreen->PositionY = 40;
-	RecFather->AddChildView(*RecGreen);
+	RecView RecGreen = RecView(0xa5a5);
+	RecGreen.Height = 9;
+	RecGreen.Width = 9;
+	RecGreen.PositionX = 100;
+	RecGreen.PositionY = 40;
+	RecFather.AddChildView(RecGreen);
 	
-	xTaskCreate((TaskFunction_t)TASK_UI_Draw,"vLEDTASK", 250, Ui, 1, NULL);
+	xTaskCreate((TaskFunction_t)TASK_UI_Draw,"vLEDTASK", 250, &Ui, 1, NULL);
 }
 void Display::Task_Main()
 {
@@ -172,7 +172,6 @@ void Display::Task_Main()
 	{
 		//Ui->Task_Draw();
 		/*
-		//初始化界面
 		Display_DEV->OLED_ShowStr(0,0,"R:");
 		Display_DEV->OLED_ShowStr(60,0,"Count:");
 		Display_DEV->OLED_ShowStr(60,1,"VB:");

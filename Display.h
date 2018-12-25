@@ -13,13 +13,13 @@ class Display
 	public:
 	Display();
 	void Task_Main();
-	/*显示的数据*/
+	
 	float *Roll;
 	float *VB;
 	float *Speed;
 	uint16_t *Attitude_1sCount;
 	private:
-	OLED096* Display_DEV;
-	UICORE * Ui;
+	//OLED096 * Display_DEV;
+	UICORE Ui;
 };
 #endif
